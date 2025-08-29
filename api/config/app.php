@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     /*
@@ -123,4 +125,5 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'hacker_news_url' => env('APP_HACKER_NEWS_URL', 'https://news.ycombinator.com'),
 ];

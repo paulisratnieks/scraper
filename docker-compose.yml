@@ -13,7 +13,7 @@ services:
         environment:
             WWWUSER: '${WWWUSER}'
             LARAVEL_SAIL: 1
-            XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
+            XDEBUG_MODE: 'develop,debug,coverage'
             XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
             IGNITION_LOCAL_SITES_PATH: '${PWD}'
         volumes:
@@ -52,7 +52,6 @@ services:
             dockerfile: Dockerfile
         volumes:
             - './web:/app'
-            - '/app/node_modules'
         ports:
             - '5173:5173'
         working_dir: /app
