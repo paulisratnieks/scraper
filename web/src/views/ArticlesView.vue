@@ -44,16 +44,16 @@ onMounted(() => {
                     :paginator="true"
                     :rows="rowsPerPage"
                     :totalRecords="articlesStore.pagination.total"
-                    tableStyle="min-width: 50rem"
+                    tableStyle="min-width: 50rem; table-layout: fixed"
                     selectionMode="single"
                     @page="onPageChange"
                     @rowClick="onRowClick"
                 >
-                    <Column field="id" header="Id"></Column>
+                    <Column field="id" header="Id" class="w-30"></Column>
                     <Column field="title" header="Title"></Column>
-                    <Column field="points" header="Points"></Column>
-                    <Column field="created_at" header="Created At"></Column>
-                    <Column :exportable="false" style="min-width: 12rem">
+                    <Column field="points" header="Points" class="w-22"></Column>
+                    <Column field="created_at" header="Created At" class="w-50"></Column>
+                    <Column :exportable="false" class="w-18">
                         <template #body="slotProps">
                             <Button
                                 icon="pi pi-trash"

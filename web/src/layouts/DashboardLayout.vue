@@ -22,6 +22,14 @@ const onClickLogout = (): void => {
             toast.add({ severity: 'error', summary: 'Failure', detail: 'Logging Out Failed', life: 3000 })
         })
 }
+
+const isRouteActive = (route: string): boolean => {
+    return router.currentRoute.value.name === route
+}
+
+const severityFromRoute = (route: string): string => {
+    return isRouteActive(route) ? 'primary' : 'secondary'
+}
 </script>
 
 <template>
@@ -31,7 +39,7 @@ const onClickLogout = (): void => {
                 icon="pi pi-th-large"
                 label="Articles"
                 class="mr-2"
-                severity="secondary"
+                :severity="severityFromRoute('articles')"
                 text
                 @click="onClickArticles"
             />

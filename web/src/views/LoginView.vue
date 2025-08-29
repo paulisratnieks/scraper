@@ -62,6 +62,7 @@ const onFormSubmit = (event: FormSubmitEvent) => {
 <template>
     <div class="flex w-full justify-center p-14">
         <Card class="w-md">
+            <template #title> Log In </template>
             <template #content>
                 <Form v-slot="$form" :initialValues :resolver @submit="onFormSubmit" class="flex flex-col gap-4">
                     <div class="flex flex-col gap-1">
@@ -83,7 +84,7 @@ const onFormSubmit = (event: FormSubmitEvent) => {
                             {{ $form.password.error?.message }}
                         </Message>
                     </div>
-                    <Button :loading="authStore.loading" type="submit" severity="secondary" label="Submit" />
+                    <Button :loading="authStore.loading" type="submit" severity="primary" label="Submit" />
                 </Form>
             </template>
         </Card>
