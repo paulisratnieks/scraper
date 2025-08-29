@@ -1,9 +1,13 @@
 includes:
     - vendor/larastan/larastan/extension.neon
     - vendor/phpstan/phpstan-strict-rules/rules.neon
+    - vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon
 
 parameters:
     level: max
     paths:
         - app/
         - tests/
+    ignoreErrors:
+        - '#Dynamic call to static method Illuminate\\.*#'
+        - '#Dynamic call to static method PHPUnit\\Framework\\Assert.*#'
