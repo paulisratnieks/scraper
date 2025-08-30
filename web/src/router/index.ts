@@ -15,12 +15,6 @@ const router = createRouter({
             path: '/login',
             name: 'login',
             component: () => import('../views/LoginView.vue'),
-            beforeEnter: (_, from) => {
-                if (useAuthStore().isAuthenticated) {
-                    return from
-                }
-                return true
-            },
         },
         {
             path: '/articles',
