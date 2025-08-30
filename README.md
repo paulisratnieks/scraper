@@ -34,7 +34,7 @@ cp web/.env.dev.example web/.env
 
 ### Prod Setup 
 
-1. Copy `api/.env.prod.example` to `api/.env`, `web/.env.prod.example` to `web/.env`, `docker/prod/web/default.example.conf` to `docker/prod/web/default.conf` and replace all instances of `domain_placeholder` with the domain your app will use. 
+1. Copy `api/.env.prod.example` to `api/.env`, `web/.env.prod.example` to `web/.env`, `docker/prod/web/default.example.conf` to `docker/prod/web/default.conf` and replace all instances of `domain_placeholder` with the domain your app will use
 ```bash
 cp api/.env.prod.example api/.env && \
 sed -i "s|domain_placeholder|scraper.local|g" api/.env
@@ -45,20 +45,21 @@ sed -i "s|domain_placeholder|scraper.local|g" web/.env
 cp docker/prod/web/default.example.conf docker/prod/web/default.conf && \
 sed -i "s|domain_placeholder|scraper.local|g" docker/prod/web/default.conf
 ```
-2. Run the application
+2. (Optional) Update `docker-compose.yml` db service with more secure credentials and reflect these changes in the `api/.env` file
+3. Run the application
 ```bash
 docker compose up -d
 ```
-3. Generate api app key
+4. Generate api app key
 ```bash
 docker compose exec -u $(id -u):$(id -g) api php artisan key:generate --force
 ```
-4. Run database migrations
+5. Run database migrations
 ```bash
 docker compose exec api php artisan migrate --force
 ```
-5. App is accessible at http://{domain} where domain is the previously used domain
-6. Running the scraper
+6. App is accessible at http://{domain} where `{domain}` is the previously used domain
+7. Running the scraper
 ```bash
 docker compose exec api php artisan app:scrape-articles
 ```
