@@ -48,8 +48,8 @@ services:
             timeout: 5s
     vue:
         build:
-            context: ./web
-            dockerfile: Dockerfile
+            context: .
+            dockerfile: docker/dev/web/Dockerfile
         volumes:
             - './web:/app'
         ports:

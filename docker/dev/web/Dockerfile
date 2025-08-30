@@ -2,10 +2,10 @@ FROM node:lts-alpine
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY /web/package*.json ./
 
 RUN npm install
 
-COPY . .
+COPY /web .
 
 CMD ["npm", "run", "dev", "--", "--host"]
