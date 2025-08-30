@@ -26,7 +26,7 @@ class AuthenticationController
 
     public function logout(): Response
     {
-        auth()->logout();
+        auth('web')->logout();
 
         return response()->noContent();
     }

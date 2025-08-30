@@ -41,6 +41,6 @@ class AuthenticationTest extends TestCase
             ->actingAs(User::factory()->create())
             ->postJson('logout')
             ->assertSuccessful();
-        $this->assertFalse($this->isAuthenticated());
+        $this->assertFalse($this->isAuthenticated('web'));
     }
 }

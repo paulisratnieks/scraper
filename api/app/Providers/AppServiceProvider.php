@@ -6,6 +6,7 @@ namespace App\Providers;
 
 use App\Actions\ScrapeHackerNews;
 use App\Contracts\ArticleScraper;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,5 +14,10 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(ArticleScraper::class, ScrapeHackerNews::class);
+    }
+
+    public function boot(): void
+    {
+        DB::prohibitDestructiveCommands($this->app->isProduction());
     }
 }

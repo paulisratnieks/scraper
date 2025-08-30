@@ -1,0 +1,52 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: docker/prod/api/Dockerfile
+    networks:
+      - app
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - ./api/.env:/var/www/html/.env
+    ports:
+      - '9000:9000'
+  mysql:
+    image: 'mysql/mysql-server:8.0'
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_DATABASE: api
+      MYSQL_USER: sail
+      MYSQL_PASSWORD: password
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    volumes:
+      - 'mysql_data:/var/lib/mysql'
+    networks:
+      - app
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 2s
+      timeout: 20s
+      retries: 10
+  vue:
+    build:
+      context: .
+      dockerfile: docker/prod/web/Dockerfile
+    ports:
+      - '80:80'
+    volumes:
+        - ./web/.env:/app/.env
+    networks:
+      - app
+    depends_on:
+      - api
+networks:
+  app:
+    driver: bridge
+volumes:
+  mysql_data:
+    driver: local
