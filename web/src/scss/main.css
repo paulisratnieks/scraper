@@ -1,0 +1,14 @@
+@import 'primeicons/primeicons.css';
+@import 'tailwindcss';
+@import 'tailwindcss-primeui';
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    font-weight: normal;
+}
+
+body {
+    font-family: Inter, 'Fira Sans', sans-serif;
+}
