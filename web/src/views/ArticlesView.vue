@@ -2,11 +2,11 @@
 import { onMounted } from 'vue'
 import { useArticlesStore } from '@/stores/articles.ts'
 import type { Article } from '@/types/article.ts'
-import { useToast } from 'primevue'
 import DashboardLayout from '@/layouts/DashboardLayout.vue'
+import { NotificationType, useNotifications } from '@/composables/notifications.ts'
 
 const articlesStore = useArticlesStore()
-const toast = useToast()
+const notifications = useNotifications()
 
 const rowsPerPage = 10
 
@@ -17,22 +17,16 @@ const onRowClick = (event: { data: Article }) => {
 const onClickDelete = (event: Article) => {
     articlesStore
         .deleteById(event.id)
-        .then(() => toast.add({ severity: 'success', summary: 'Successful', detail: 'Article Deleted', life: 3000 }))
-        .catch(() =>
-            toast.add({ severity: 'error', summary: 'Failure', detail: 'Article Deletion Failed', life: 3000 }),
-        )
+        .then(() => notifications.add(NotificationType.Success, 'Article Deleted'))
+        .catch(() => notifications.add(NotificationType.Error, 'Article Deletion Failed'))
 }
 
 const onPageChange = (event: { page: number }) => {
-    articlesStore
-        .fetch(event.page + 1)
-        .catch(() => toast.add({ severity: 'error', summary: 'Failure', detail: 'Article Fetch Failed', life: 3000 }))
+    articlesStore.fetch(event.page + 1).catch(() => notifications.add(NotificationType.Error, 'Article Fetch Failed'))
 }
 
 onMounted(() => {
-    articlesStore
-        .fetch()
-        .catch(() => toast.add({ severity: 'error', summary: 'Failure', detail: 'Article Fetch Failed', life: 3000 }))
+    articlesStore.fetch().catch(() => notifications.add(NotificationType.Error, 'Article Fetch Failed'))
 })
 </script>
 

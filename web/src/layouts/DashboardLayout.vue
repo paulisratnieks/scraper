@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth.ts'
-import { useToast } from 'primevue'
+import { NotificationType, useNotifications } from '@/composables/notifications.ts'
 
 const router = useRouter()
-const toast = useToast()
+const notifications = useNotifications()
 const authStore = useAuthStore()
 
 const onClickArticles = (): void => {
@@ -15,11 +15,11 @@ const onClickLogout = (): void => {
     authStore
         .logout()
         .then(() => {
-            toast.add({ severity: 'success', summary: 'Successful', detail: 'Logged Out', life: 3000 })
+            notifications.add(NotificationType.Success, 'Logged Out')
             router.push({ path: '/' })
         })
         .catch(() => {
-            toast.add({ severity: 'error', summary: 'Failure', detail: 'Logging Out Failed', life: 3000 })
+            notifications.add(NotificationType.Error, 'Logging Out Failed')
         })
 }
 

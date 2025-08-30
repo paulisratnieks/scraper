@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
-import { useToast } from 'primevue'
 import { useAuthStore } from '@/stores/auth.ts'
 import { useRouter } from 'vue-router'
 import type { LoginFormValues } from '@/types/login-form.ts'
 import type { AxiosError } from 'axios'
 import type { FormResolverOptions, FormSubmitEvent } from '@primevue/forms'
+import { NotificationType, useNotifications } from '@/composables/notifications.ts'
 
-const toast = useToast()
 const authStore = useAuthStore()
+const notifications = useNotifications()
 const router = useRouter()
 
 const initialValues: LoginFormValues = reactive({
@@ -40,19 +40,14 @@ const onFormSubmit = (event: FormSubmitEvent) => {
         authStore
             .login(formValues)
             .then(() => {
-                toast.add({ severity: 'success', summary: 'Successful', detail: 'Logged In', life: 3000 })
+                notifications.add(NotificationType.Success, 'Logged In')
                 router.push({ path: '/' })
             })
             .catch((response: AxiosError<{ error?: string }>) => {
                 if (response.response?.data.error) {
-                    toast.add({
-                        severity: 'error',
-                        summary: 'Failure',
-                        detail: response.response?.data.error,
-                        life: 3000,
-                    })
+                    notifications.add(NotificationType.Error, response.response?.data.error)
                 } else {
-                    toast.add({ severity: 'error', summary: 'Failure', detail: 'Unknown error occurred', life: 3000 })
+                    notifications.add(NotificationType.Error, 'Unknown error occurred')
                 }
             })
     }
