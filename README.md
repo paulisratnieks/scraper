@@ -24,7 +24,7 @@ cp web/.env.dev.example web/.env
 ```
 5. Run database migrations
 ```bash
-./api/vendor/bin/sail artisan migrate --force
+./api/vendor/bin/sail artisan migrate 
 ```
 6. App is accessible at http://localhost:5173 
 7. Running the scraper
