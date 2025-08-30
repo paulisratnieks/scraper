@@ -57,14 +57,7 @@ const severityFromRoute = (route: string): string => {
             />
         </template>
     </Toolbar>
-    <main>
+    <main class="my-8 mx-auto max-w-7xl">
         <slot></slot>
     </main>
 </template>
-
-<style lang="scss" scoped>
-main {
-    max-width: 80rem;
-    margin: 2rem auto;
-}
-</style>
