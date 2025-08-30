@@ -15,7 +15,7 @@ describe('Auth Store', () => {
     beforeEach(() => {
         setActivePinia(createPinia())
     })
-    test('logs and and has correct state', async () => {
+    test('logs in and and has correct state', async () => {
         const authStore = useAuthStore()
         const credentials = {
             username: 'username',
