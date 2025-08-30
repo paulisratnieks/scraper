@@ -24,11 +24,15 @@ const onClickDelete = (event: Article) => {
 }
 
 const onPageChange = (event: { page: number }) => {
-    articlesStore.fetch(event.page + 1)
+    articlesStore
+        .fetch(event.page + 1)
+        .catch(() => toast.add({ severity: 'error', summary: 'Failure', detail: 'Article Fetch Failed', life: 3000 }))
 }
 
 onMounted(() => {
-    articlesStore.fetch()
+    articlesStore
+        .fetch()
+        .catch(() => toast.add({ severity: 'error', summary: 'Failure', detail: 'Article Fetch Failed', life: 3000 }))
 })
 </script>
 
